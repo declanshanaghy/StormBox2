@@ -1,0 +1,5 @@
+*	Play arbitrary MP3s (sound effects such as thunder and other MP3s) (via USB)
+** 		I also downloaded 16 different versions of ThunderStruck (AC/DC) we definitely have to integrate some of them!
+*	Toggle a high wattage light at high frequency to simulate lightening (via USB)
+*	Turn 1 of the main lights of the office on/off so it's dark and the lightening effect is enhanced (via TCP socket)
+`
