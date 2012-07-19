@@ -12,19 +12,26 @@ StormBoxEventMonitor
 Requires
 --------
 * user in internal indexer with User role: stormbox/stormbox
-* splunk-sdk: pip install splunk-sdk
+* splunk-sdk: `pip install splunk-sdk`
+
+Fake sbe_receiver
+-----------------
+
+    #!/bin/bash
+    echo $*
 
 """
 import json
 import logging
+import subprocess
 import time
 import types
 
 import splunklib.client
 
 
-SUBDOMAIN = 'staging.'
-INTERNAL_INDEXER_HOST = 'splunk.%ssplunkstorm.com' % SUBDOMAIN
+SUBDOMAIN = 'staging'
+INTERNAL_INDEXER_HOST = 'splunk.%.ssplunkstorm.com' % SUBDOMAIN
 INTERNAL_INDEXER_USERNAME = 'stormbox'
 INTERNAL_INDEXER_PASSWORD = 'stormbox'
 
@@ -79,9 +86,18 @@ def main():
                                     password=INTERNAL_INDEXER_PASSWORD,
                                     host=INTERNAL_INDEXER_HOST)
     action = 'user_signup'
-    results = internal_indexer.search('search action=%s | stats count by email' % action)
+    earliest = time.time() - 300
+    search = 'search action=%s earliest=%s | stats count by email' % (action,
+                                                                      earliest)
+    results = internal_indexer.search(search)
+
     if len(results) <= 0:
+        logging.info('search returned no result')
         exit()
+
+    subprocess.call(['sbe_receiver',
+                     '--event_type', action,
+                     '--email', results[0]['email']])
 
 if __name__ == "__main__":
     main()

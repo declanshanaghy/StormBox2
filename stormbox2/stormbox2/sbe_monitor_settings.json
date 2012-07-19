@@ -1,0 +1,6 @@
+{
+	"subdomain": "staging",
+	"internal_indexer_username": "stormbox",
+	"internal_indexer_password": "stormbox",
+	"period_seconds": 300,
+}
