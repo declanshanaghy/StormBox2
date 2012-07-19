@@ -10,3 +10,4 @@ gen
 *.gcode
 *.stl
 *.s3g
+.idea
