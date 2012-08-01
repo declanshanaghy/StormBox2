@@ -1,6 +1,7 @@
 {
-	"subdomain": "staging",
-	"internal_indexer_username": "stormbox",
-	"internal_indexer_password": "stormbox",
-	"period_seconds": 300,
+	"host": "splunk.stack.splunkstorm.com",
+	"port": 8089,
+	"username": "stormbox",
+	"password": "changeme",
+	"period_seconds": 300
 }
